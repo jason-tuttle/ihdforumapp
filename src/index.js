@@ -7,9 +7,6 @@ import { ApolloProvider } from 'react-apollo';
 
 import Messages from './messages';
 
-
-import gql from 'graphql-tag';
-
 const client = new ApolloClient({
   uri: 'http://localhost:3100/graphql'
 });

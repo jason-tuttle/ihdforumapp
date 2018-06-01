@@ -10,7 +10,16 @@ const Messages = () => (
           id
           message
           comments {
+            id
             comment
+            user {
+              username
+            }
+          }
+          likes {
+            user {
+              username
+            }
           }
           user {
             username
@@ -30,6 +39,9 @@ const Messages = () => (
           {message.comments.map(comment => (<p className="comment" key={comment.id}>
             {comment.comment}
           </p>))}
+          <p>
+            {message.likes.length} likes: {message.likes.map(like => (<span>{like.user.username} </span>))}
+          </p>
         </div>
       ))
     }}
