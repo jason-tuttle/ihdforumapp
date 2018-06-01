@@ -5,6 +5,8 @@ import registerServiceWorker from './registerServiceWorker';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
+import Messages from './messages';
+
 
 import gql from 'graphql-tag';
 
@@ -16,6 +18,9 @@ const App = () => (
     <ApolloProvider client={client}>
       <div>
         <h2>My first apollo app!</h2>
+        <div>
+          <Messages />
+        </div>
       </div>
     </ApolloProvider>
 )
