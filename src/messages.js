@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import Comments from './comments';
 
 const Messages = () => (
   <Query
@@ -18,6 +19,7 @@ const Messages = () => (
           }
           likes {
             user {
+              id
               username
             }
           }
@@ -36,11 +38,9 @@ const Messages = () => (
       return data.messages.map(message => (
         <div key={message.id} className="message">
           {message.message}
-          {message.comments.map(comment => (<p className="comment" key={comment.id}>
-            {comment.comment}
-          </p>))}
+          <Comments comments={message.comments} />
           <p>
-            {message.likes.length} likes: {message.likes.map(like => (<span>{like.user.username} </span>))}
+            {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.id}>{like.user.username} </span>))}
           </p>
         </div>
       ))
