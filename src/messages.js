@@ -14,6 +14,7 @@ const Messages = () => (
             id
             comment
             user {
+              id
               username
             }
           }
