@@ -1,12 +1,15 @@
-import Messages from './messages';
+import React, { Component } from 'react';
+import Messages from './Messages';
 
-const Home = () => (
-  <div>
-    <h2>IHD Forum Messages</h2>
-    <div>
-      <Messages />
-    </div>
-  </div>
-);
-
-export default Home;
+export default class Home extends Component {
+  render() {
+    return (
+      <div>
+        <h2>IHD Forum Messages</h2>
+        <div>
+          <Messages />
+        </div>
+      </div>
+    );
+  }
+} 

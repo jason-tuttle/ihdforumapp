@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { ApolloProvider } from 'react-apollo';
-import { Router } from 'react-router';
-
-// COMPONENTS
-import Auth from './Auth/auth';
-import Home from './Home';
 
 class App extends Component {
+  goTo = (route) => { this.props.history.replace(`/${route}`); }
+  login = () => { this.props.auth.login(); }
+  logout = () => { this.props.auth.logout(); }
+  
   render() {
+    console.log(this.props);
     const { client } = this.props;
+    const { isAuthenticated } = this.props.auth;
     return (
-      <ApolloProvider client={ client }>
-        <Router>
-          <Home />
-        </Router>
-      </ApolloProvider>
-    );
+      <div>
+        <h1>Auth0 - React</h1>
+        {
+          !isAuthenticated() && (
+            <button onClick={this.login}>Log In</button>
+          )
+        }
+        { isAuthenticated() && (
+            <button>Log Out</button>
+          )
+        }
+      </div>
+    ) 
   }
 }
 
