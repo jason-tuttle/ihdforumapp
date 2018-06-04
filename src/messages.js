@@ -3,6 +3,10 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Comments from './comments';
 
+const fetchUser = (user) => {
+  
+}
+
 const Messages = () => (
   <Query
     query={gql`

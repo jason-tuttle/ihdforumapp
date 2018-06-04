@@ -4,11 +4,15 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import defaults from './graphql/defaults';
 
 import Messages from './messages';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:3100/graphql'
+  uri: 'http://localhost:3100/graphql',
+  clientState: {
+    defaults,
+  }
 });
 
 const App = () => (
