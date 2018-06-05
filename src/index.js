@@ -21,22 +21,16 @@ import Compose from './components/Compose';
 import User from './components/User';
 import Callback from './components/Callback';
 
+const link = {
+  uri: 'http://localhost:3100/graphql'
+};
 const httpLink = createHttpLink({
   uri: 'http://localhost:3100/graphql',
 });
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('access_token');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    }
-  }
-});
 
 const client = new ApolloClient({
-  link: concat(authLink, httpLink),
+  uri: 'http://localhost:3100/graphql',
   cache: new InMemoryCache(),
 });
 
@@ -53,13 +47,13 @@ ReactDOM.render(
     <Router history={history}>
       <BaseLayout>
         <Switch>
-          <Route exact path="/" render={props => <App client={client} auth={auth} {...props}/>} />
-          <Route path="/home" render={props => <Home client={client} auth={auth} {...props} />} />
+          <Route exact path="/" render={props => <App auth={auth} {...props}/>} />
+          <Route path="/home" render={props => <Home auth={auth} {...props} />} />
           <Route path="/callback" render={props => {
             handleAuthentication(props);
             return <Callback {...props} />
           }} />} />
-          <Route path="/message/:messageId" render={props => <Message client={client} {...props} /> } />
+          <Route path="/message/:messageId" render={props => <Message {...props} /> } />
           <Route path="/compose" component={Compose} />
           <Route path="/user/:userId" component={User} />
         </Switch>

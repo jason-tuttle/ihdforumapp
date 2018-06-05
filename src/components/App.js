@@ -7,7 +7,6 @@ class App extends Component {
   
   render() {
     console.log(this.props);
-    const { client } = this.props;
     const { isAuthenticated } = this.props.auth;
     return (
       <div>
