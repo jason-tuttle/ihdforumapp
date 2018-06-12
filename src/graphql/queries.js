@@ -27,7 +27,7 @@ const GetMessages = gql`
   }`;
 
 const GetMessageQuery = gql`
-  query message($messageId: String!) {
+  query message($messageId: ID!) {
     message(id: $messageId) {
       id
       message
