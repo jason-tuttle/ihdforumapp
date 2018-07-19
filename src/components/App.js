@@ -4,7 +4,7 @@ class App extends Component {
   goTo = (route) => { this.props.history.replace(`/${route}`); }
   login = () => { this.props.auth.login(); }
   logout = () => { this.props.auth.logout(); }
-  
+
   render() {
     console.log(this.props);
     const { isAuthenticated } = this.props.auth;
@@ -17,11 +17,11 @@ class App extends Component {
           )
         }
         { isAuthenticated() && (
-            <button>Log Out</button>
+            <button onClick={this.logout}>Log Out</button>
           )
         }
       </div>
-    ) 
+    )
   }
 }
 

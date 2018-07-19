@@ -30,7 +30,8 @@ const httpLink = createHttpLink({
 
 
 const client = new ApolloClient({
-  uri: 'https://ihd-forum-server.herokuapp.com/graphql',
+  // uri: 'https://ihd-forum-server.herokuapp.com/graphql',
+  uri: 'http://localhost:3100/graphql',
   cache: new InMemoryCache(),
 });
 
