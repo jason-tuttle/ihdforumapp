@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import ApolloClient from 'apollo-boost';
+import ApolloClient from 'apollo-client';
 import { ApolloLink, concat } from 'apollo-link';
 import { ApolloProvider } from 'react-apollo';
 import { createHttpLink, HttpLink } from 'apollo-link-http';
@@ -21,17 +21,32 @@ import Compose from './components/Compose';
 import User from './components/User';
 import Callback from './components/Callback';
 
-const link = {
-  uri: 'http://localhost:3100/graphql'
-};
+let uri;
+if (process.env.NODE_ENV === 'development') {
+  uri = 'http://localhost:3100/graphql'
+} else {
+  uri = 'https://ihd-forum-server.herokuapp.com/graphql'
+}
+
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3100/graphql',
+  uri,
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    }
+  }
 });
 
 
+
 const client = new ApolloClient({
-  // uri: 'https://ihd-forum-server.herokuapp.com/graphql',
-  uri: 'http://localhost:3100/graphql',
+  uri,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
