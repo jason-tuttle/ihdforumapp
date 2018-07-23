@@ -22,10 +22,10 @@ export default class Message extends Component {
       return (
         <div key={message.id} className="message">
           {message.message}
-          <div className="author-item">posted by: {message.user.username}</div>
+          <div className="author-item">posted by: {message.user.nickname}</div>
           <Comments comments={message.comments} />
           <p>
-            {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.id}>{like.user.username} </span>))}
+            {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.id}>{like.user.nickname} </span>))}
           </p>
         </div>
       )
