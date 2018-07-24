@@ -25,7 +25,6 @@ export default class Auth {
       if (err) {
         console.warn(err);
       } else {
-        console.log(user);
         localStorage.setItem('user_info', JSON.stringify(user));
       }
     });

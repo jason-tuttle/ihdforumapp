@@ -17,8 +17,9 @@ const Messages = () => (
           {message.message} <Link to={`message/${message.id}`} id={message.id} >&#8658;</Link>
           <Comments comments={message.comments} />
           <p>
-            {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.user_id}>{like.user.username} </span>))}
+            {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.id}>{like.user.nickname} </span>))}
           </p>
+          <hr />
         </div>
       ))
     }}
