@@ -9,19 +9,19 @@ const GetMessages = gql`
         id
         comment
         user {
-          id
-          username
+          user_id
+          nickname
         }
       }
       likes {
         user {
-          id
-          username
+          user_id
+          nickname
         }
       }
       user {
-        username
-        id
+        nickname
+        user_id
       }
     }
   }`;
@@ -35,19 +35,19 @@ const GetMessageQuery = gql`
         id
         comment
         user {
-          id
-          username
+          user_id
+          nickname
         }
       }
       likes {
         user {
-          id
-          username
+          user_id
+          nickname
         }
       }
       user {
-        username
-        id
+        nickname
+        user_id
       }
     }
   }`;
