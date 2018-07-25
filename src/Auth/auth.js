@@ -51,13 +51,4 @@ export default class Auth {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
-
-  getUser = (accessToken, userId) => {
-    const auth0Manage = new auth0.Management({
-      domain: authSettings.domain,
-      access_token: accessToken,
-    });
-
-
-  }
 }

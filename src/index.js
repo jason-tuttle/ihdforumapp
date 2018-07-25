@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import ApolloClient from 'apollo-client';
-import { ApolloLink, concat } from 'apollo-link';
 import { ApolloProvider } from 'react-apollo';
-import { createHttpLink, HttpLink } from 'apollo-link-http';
+import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Router, Switch, Route } from 'react-router-dom';
@@ -23,7 +22,7 @@ import Callback from './components/Callback';
 
 let uri;
 if (process.env.NODE_ENV === 'development') {
-  uri = 'http://localhost:3100/graphql'
+  uri = 'https://ihd-forum-server.herokuapp.com/graphql'
 } else {
   uri = 'https://ihd-forum-server.herokuapp.com/graphql'
 }
@@ -61,7 +60,7 @@ const handleAuthentication = (nextState, replace) => {
 ReactDOM.render(
   <ApolloProvider client={ client }>
     <Router history={history}>
-      <BaseLayout>
+      <BaseLayout auth={auth}>
         <Switch>
           <Route exact path="/" render={props => <App auth={auth} {...props}/>} />
           <Route path="/home" render={props => <Home auth={auth} {...props} />} />
@@ -69,8 +68,8 @@ ReactDOM.render(
             handleAuthentication(props);
             return <Callback {...props} />
           }} />} />
-          <Route path="/message/:messageId" render={props => <Message {...props} /> } />
-          <Route path="/compose" component={Compose} />
+          <Route path="/message/:messageId" render={props => <Message auth={auth} {...props} /> } />
+          <Route path="/compose" render={props => <Compose {...props} /> } />
           <Route path="/user/:userId" component={User} />
         </Switch>
       </BaseLayout>

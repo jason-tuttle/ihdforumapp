@@ -6,7 +6,6 @@ class App extends Component {
   logout = () => { this.props.auth.logout(); }
 
   render() {
-    console.log(this.props);
     const { isAuthenticated } = this.props.auth;
     return (
       <div>
