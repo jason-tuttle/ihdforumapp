@@ -5,6 +5,8 @@ class Comments extends Component {
     return comments.map(comment => (
       <p className="comment" key={comment.id}>
         {comment.comment}
+        <br />
+        from: {comment.user.nickname}
       </p>))
   }
 }
