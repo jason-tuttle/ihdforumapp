@@ -22,7 +22,7 @@ import Callback from './components/Callback';
 
 let uri;
 if (process.env.NODE_ENV === 'development') {
-  uri = 'https://ihd-forum-server.herokuapp.com/graphql'
+  uri = 'http://localhost:3100/graphql'
 } else {
   uri = 'https://ihd-forum-server.herokuapp.com/graphql'
 }
