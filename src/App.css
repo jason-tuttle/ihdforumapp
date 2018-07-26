@@ -1,5 +1,10 @@
 .message {
   font-weight: bold;
+  padding: 20px 10px;
+}
+
+.message-body {
+  padding: 20px;
 }
 
 .comment {
