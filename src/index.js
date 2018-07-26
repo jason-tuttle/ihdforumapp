@@ -22,7 +22,7 @@ import Callback from './components/Callback';
 
 let uri;
 if (process.env.NODE_ENV === 'development') {
-  uri = 'https://ihd-forum-server.herokuapp.com/graphql'
+  uri = 'http://localhost:3100/graphql'
 } else {
   uri = 'https://ihd-forum-server.herokuapp.com/graphql'
 }
@@ -60,7 +60,7 @@ const handleAuthentication = (nextState, replace) => {
 ReactDOM.render(
   <ApolloProvider client={ client }>
     <Router history={history}>
-      <BaseLayout auth={auth}>
+      <BaseLayout auth={auth} >
         <Switch>
           <Route exact path="/" render={props => <App auth={auth} {...props}/>} />
           <Route path="/home" render={props => <Home auth={auth} {...props} />} />

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
+import { Link } from 'react-router-dom';
+
 import { GetMessageQuery } from '../graphql/queries';
 import { AddComment } from '../graphql/mutations';
 import Comments from './Comments';
@@ -20,46 +22,63 @@ export default class Message extends Component {
         if (error) return (<p>Error! { error.message }</p>);
         const { message } = data;
         return (
-          <div key={ message.id } className="message">
-            { message.message }
-            <div className="author-item">posted by: { message.user.nickname }</div>
-            <Mutation
-              mutation={ AddComment }
-              update={ (cache, { data: { addComment } } ) => {
-                const { message } = cache.readQuery({ query: GetMessageQuery, variables: id });
-                const data = { message: { ...message, comments: [...message.comments, { ...addComment, id: 'TEMP' }] } };
-                cache.writeQuery({
-                  query: GetMessageQuery,
-                  variables: id,
-                  data,
-                });
-              }}
-            >
-              {(addComment, { data }) => (
-                <div>
-                  <form onSubmit={e => {
-                    e.preventDefault();
-                    addComment({
-                      variables: {
-                        comment: {
-                          comment: commentInput.value,
-                          messageId: id.messageId,
-                          user: user.sub,
+          <div>
+            <div className="header">
+              <Link to={'/home'}>Back to Messages</Link>
+            </div>
+            <div key={ message.id } className="message">
+              <div className="body">
+                { message.message }
+              </div>
+
+              <div className="footer">
+                posted by: { message.user.nickname }
+              </div>
+
+              <p>
+                {message.likes.length} Liked By: {message.likes.map(like => (<span key={like.user.user_id}>{like.user.nickname} </span>))}
+              </p>
+
+            </div>
+            <div className="comments-container">
+              <Mutation
+                mutation={ AddComment }
+                update={ (cache, { data: { addComment } } ) => {
+                  const { message } = cache.readQuery({ query: GetMessageQuery, variables: id });
+                  const data = { message: { ...message, comments: [...message.comments, { ...addComment, id: 'TEMP' }] } };
+                  cache.writeQuery({
+                    query: GetMessageQuery,
+                    variables: id,
+                    data,
+                  });
+                }}
+              >
+                {(addComment, { data }) => (
+                  <div>
+                    <form onSubmit={e => {
+                      e.preventDefault();
+                      addComment({
+                        variables: {
+                          comment: {
+                            comment: commentInput.value,
+                            messageId: id.messageId,
+                            user: user.sub,
+                          }
                         }
-                      }
-                    });
-                    commentInput.value = "";
-                  }}>
-                    <textarea ref={node => { commentInput = node; }} />
-                    <button type="Submit">Add Comment</button>
-                  </form>
-                </div>
-              )}
-            </Mutation>
-            <Comments comments={message.comments} />
-            <p>
-              {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.user_id}>{like.user.nickname} </span>))}
-            </p>
+                      });
+                      commentInput.value = "";
+                    }}>
+                      <textarea rows="10" wrap="soft" ref={node => { commentInput = node; }} className="comment-input" />
+                      <br />
+                      <button type="Submit">Add Comment</button>
+                    </form>
+                  </div>
+                )}
+              </Mutation>
+
+              <Comments comments={message.comments} />
+
+            </div>
           </div>
         )
       }}
