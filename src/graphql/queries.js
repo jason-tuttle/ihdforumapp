@@ -23,6 +23,7 @@ const GetMessages = gql`
         nickname
         user_id
       }
+      createdAt
     }
   }`;
 
@@ -49,6 +50,7 @@ const GetMessageQuery = gql`
         nickname
         user_id
       }
+      createdAt
     }
   }`;
 
