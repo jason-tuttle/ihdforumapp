@@ -62,15 +62,15 @@ ReactDOM.render(
     <Router history={history}>
       <BaseLayout auth={auth} >
         <Switch>
-          <Route exact path="/" render={props => <App auth={auth} {...props}/>} />
-          <Route path="/home" render={props => <Home auth={auth} {...props} />} />
-          <Route path="/callback" render={props => {
+          <Route exact path={process.env.PUBLIC_URL + "/"} render={props => <App auth={auth} {...props}/>} />
+          <Route path={process.env.PUBLIC_URL + "/home"} render={props => <Home auth={auth} {...props} />} />
+          <Route path={process.env.PUBLIC_URL + "/callback"} render={props => {
             handleAuthentication(props);
             return <Callback {...props} />
           }} />} />
-          <Route path="/message/:messageId" render={props => <Message auth={auth} {...props} /> } />
-          <Route path="/compose" render={props => <Compose {...props} /> } />
-          <Route path="/user/:userId" component={User} />
+          <Route path={process.env.PUBLIC_URL + "/message/:messageId"} render={props => <Message auth={auth} {...props} /> } />
+          <Route path={process.env.PUBLIC_URL + "/compose"} render={props => <Compose {...props} /> } />
+          <Route path={process.env.PUBLIC_URL + "/user/:userId"} component={User} />
         </Switch>
       </BaseLayout>
     </Router>
