@@ -33,6 +33,7 @@ export default class Message extends Component {
 
               <div className="footer">
                 posted by: { message.user.nickname }
+                posted { message.createdAt }
               </div>
 
               <p>

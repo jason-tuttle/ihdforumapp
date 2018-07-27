@@ -15,9 +15,13 @@ const Messages = () => (
       return data.messages.map(message => (
         <div key={message.id} className="message">
           {message.message} <Link to={`message/${message.id}`} id={message.id} >&#8658;</Link>
+          <div className="footer">
+            posted by: { message.user.nickname }
+            posted { message.createdAt }
+          </div>
           <Comments comments={message.comments} />
           <p>
-            {message.likes.length} likes: {message.likes.map(like => (<span key={like.user.user_id}>{like.user.nickname} </span>))}
+            {message.likes.length} likes
           </p>
           <hr />
         </div>
