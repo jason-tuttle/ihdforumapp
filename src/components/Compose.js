@@ -21,7 +21,7 @@ const addMessage = () => {
               }
             });
             messageInput.value = "";
-            this.props.history.replace(`/home`);
+            this.props.history.replace(`/ihdforumapp/home`);
           }}>
             <textarea ref={node => { messageInput = node; }} />
             <button type="Submit">Add Message</button>

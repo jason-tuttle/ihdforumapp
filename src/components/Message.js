@@ -24,7 +24,7 @@ export default class Message extends Component {
         return (
           <div>
             <div className="header">
-              <Link to={'/home'}>Back to Messages</Link>
+              <Link to={'/ihdforumapp/home'}>Back to Messages</Link>
             </div>
             <div key={ message.id } className="message">
               <div className="body">

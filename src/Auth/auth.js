@@ -1,9 +1,15 @@
 import auth0 from 'auth0-js';
 import history from '../history';
-import authSettings from '../authSettings';
 
 export default class Auth {
-  auth0 = new auth0.WebAuth(authSettings);
+  auth0 = new auth0.WebAuth({
+    domain: 'jason-tuttle.auth0.com',
+    clientID: process.env.REACT_APP_CLIENT_ID,
+    redirectUri: 'https://jason-tuttle.github.io/ihdforumapp/callback',
+    audience: 'https://jason-tuttle.auth0.com/userinfo',
+    responseType: 'token id_token',
+    scope: 'openid profile'
+  });
 
   handleAuthentication = () => {
     this.auth0.parseHash((err, authResult) => {
@@ -30,7 +36,7 @@ export default class Auth {
     });
 
     // navigate to home route
-    history.replace('/home');
+    history.replace('/ihdforumapp/home');
   }
 
   logout = () => {

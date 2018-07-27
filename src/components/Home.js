@@ -9,11 +9,6 @@ export default class Home extends Component {
     return (
       <div>
         <h2>IHD Forum Messages</h2>
-        {
-          isAuthenticated() && (
-            <p><Link to={'/compose'}>+</Link></p>
-          )
-        }
         
         <div>
           <Messages />

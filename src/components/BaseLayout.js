@@ -12,7 +12,7 @@ class BaseLayout extends Component {
           <h1 className="header title">IHD Forum Redux</h1>
           <h3 className="header subtitle">Totally secure.</h3>
           {isAuthenticated() && (
-            <Link to={'/compose'}>+ New Message</Link>
+            <Link to={'/ihdforumapp/compose'}>+ New Message</Link>
           )}
         </header>
         <div style={{height: 'calc(100vh - 125px)'}}>
