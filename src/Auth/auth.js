@@ -36,7 +36,7 @@ export default class Auth {
     });
 
     // navigate to home route
-    history.replace(process.env.NODE_ENV === 'development' ? '/home' : '/ihdforumapp/home');
+    history.push(process.env.NODE_ENV === 'development' ? '/home' : '/ihdforumapp/home');
   }
 
   logout = () => {
@@ -46,7 +46,7 @@ export default class Auth {
     localStorage.removeItem('expires_at');
     localStorage.removeItem('user_info');
     // navigate to home route
-    history.replace(process.env.NODE_ENV === 'development' ? '/' : '/ihdforumapp/');
+    history.push(process.env.NODE_ENV === 'development' ? '/' : '/ihdforumapp/');
   }
 
   login = () => {

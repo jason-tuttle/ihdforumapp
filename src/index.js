@@ -7,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import Auth from './Auth/auth';
 import history from './history';
 
@@ -63,17 +63,17 @@ const baseUrl = process.env.PUBLIC_URL ? process.env.PUBLIC_URL : '';
 
 ReactDOM.render(
   <ApolloProvider client={ client }>
-    <Router basename={baseUrl} >
-      <BaseLayout auth={auth} >
+    <Router history={history}>
+      <BaseLayout auth={auth} baseUrl={baseUrl} >
         <Switch>
           <Route exact path={baseUrl + "/"} render={props => <App auth={auth} {...props}/>} />
           <Route path={baseUrl + "/home"} render={props => <Home auth={auth} {...props} />} />
           <Route path={baseUrl + "/callback"} render={props => {
             handleAuthentication(props);
-            return <Callback {...props} />
+            return <Callback history={history} {...props} />
           }} />} />
           <Route path={baseUrl + "/message/:messageId"} render={props => <Message auth={auth} baseUrl={baseUrl} {...props} /> } />
-          <Route path={baseUrl + "/compose"} render={props => <Compose history={history} {...props} /> } />
+          <Route path={baseUrl + "/compose"} render={props => <Compose history={history} baseUrl={baseUrl} {...props} /> } />
           <Route path={baseUrl + "/user/:userId"} component={User} />
         </Switch>
       </BaseLayout>

@@ -5,6 +5,7 @@ class BaseLayout extends Component {
   logout = () => { this.props.auth.logout(); }
   render() {
     const { isAuthenticated } = this.props.auth;
+    const {baseUrl} = this.props;
     
     return (
       <div>
@@ -14,7 +15,7 @@ class BaseLayout extends Component {
           {isAuthenticated() && (
             <div>
               <button onClick={this.logout}>Log Out</button>
-              <Link to={'/ihdforumapp/compose'}>+ New Message</Link>
+              <Link to={`${baseUrl}/compose`}>+ New Message</Link>
             </div>
           )}
         </header>
