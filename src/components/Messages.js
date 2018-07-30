@@ -1,9 +1,12 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import moment from 'moment';
 // COMPONENTS
 import Comments from './Comments';
 import { Link } from 'react-router-dom';
 import { GetMessages } from '../graphql/queries';
+
+const formatDate = (date) => moment(date).calendar();
 
 
 const Messages = () => (
@@ -16,8 +19,8 @@ const Messages = () => (
         <div key={message.id} className="message">
           {message.message} <Link to={`message/${message.id}`} id={message.id} >&#8658;</Link>
           <div className="footer">
-            posted by: { message.user.nickname }
-            posted { message.createdAt }
+            posted by: { message.user.nickname }<br />
+            posted { formatDate(message.createdAt) }
           </div>
           <Comments comments={message.comments} />
           <p>

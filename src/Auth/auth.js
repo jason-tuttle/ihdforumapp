@@ -46,7 +46,7 @@ export default class Auth {
     localStorage.removeItem('expires_at');
     localStorage.removeItem('user_info');
     // navigate to home route
-    history.replace('/');
+    history.replace('/ihdforumapp/');
   }
 
   login = () => {

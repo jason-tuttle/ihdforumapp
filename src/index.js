@@ -69,7 +69,7 @@ ReactDOM.render(
             return <Callback {...props} />
           }} />} />
           <Route path={process.env.PUBLIC_URL + "/message/:messageId"} render={props => <Message auth={auth} {...props} /> } />
-          <Route path={process.env.PUBLIC_URL + "/compose"} render={props => <Compose {...props} /> } />
+          <Route path={process.env.PUBLIC_URL + "/compose"} render={props => <Compose history={history} {...props} /> } />
           <Route path={process.env.PUBLIC_URL + "/user/:userId"} component={User} />
         </Switch>
       </BaseLayout>
