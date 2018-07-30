@@ -1,17 +1,25 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { GetMessageQuery } from '../graphql/queries';
 import { AddComment } from '../graphql/mutations';
 import Comments from './Comments';
 
 export default class Message extends Component {
+  formatDate = (date) => {
+    const formatted = new Date(date);
+    return moment(formatted).calendar()
+  };
+  
   render() {
     let commentInput;
     const user = JSON.parse(localStorage.getItem('user_info'));
     const { messageId } = this.props.match.params;
     const id = { messageId };
+    const { baseUrl } = this.props;
+    console.log(this.props);
     return (
       <Query
         query={GetMessageQuery}
@@ -24,7 +32,7 @@ export default class Message extends Component {
         return (
           <div>
             <div className="header">
-              <Link to={'/ihdforumapp/home'}>Back to Messages</Link>
+              <Link to={`${baseUrl}/home`}>Back to Messages</Link>
             </div>
             <div key={ message.id } className="message">
               <div className="body">
@@ -33,7 +41,8 @@ export default class Message extends Component {
 
               <div className="footer">
                 posted by: { message.user.nickname }
-                posted { message.createdAt }
+                <br />
+                posted { this.formatDate(message.createdAt) }
               </div>
 
               <p>

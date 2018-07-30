@@ -5,7 +5,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'jason-tuttle.auth0.com',
     clientID: process.env.REACT_APP_CLIENT_ID,
-    redirectUri: 'https://jason-tuttle.github.io/ihdforumapp/callback',
+    redirectUri: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/callback' : 'https://jason-tuttle.github.io/ihdforumapp/callback',
     audience: 'https://jason-tuttle.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile'
@@ -36,7 +36,7 @@ export default class Auth {
     });
 
     // navigate to home route
-    history.replace('/ihdforumapp/home');
+    history.replace(process.env.NODE_ENV === 'development' ? '/home' : '/ihdforumapp/home');
   }
 
   logout = () => {
@@ -46,7 +46,7 @@ export default class Auth {
     localStorage.removeItem('expires_at');
     localStorage.removeItem('user_info');
     // navigate to home route
-    history.replace('/ihdforumapp/');
+    history.replace(process.env.NODE_ENV === 'development' ? '/' : '/ihdforumapp/');
   }
 
   login = () => {

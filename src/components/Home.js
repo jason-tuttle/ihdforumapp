@@ -11,7 +11,9 @@ export default class Home extends Component {
         <h2>IHD Forum Messages</h2>
         
         <div>
-          <Messages />
+          {isAuthenticated() && 
+            <Messages />
+          }
         </div>
       </div>
     );

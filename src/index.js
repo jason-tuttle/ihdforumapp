@@ -7,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Auth from './Auth/auth';
 import history from './history';
 
@@ -20,9 +20,11 @@ import Compose from './components/Compose';
 import User from './components/User';
 import Callback from './components/Callback';
 
+console.log(`Running in ${process.env.NODE_ENV} mode...`);
+
 let uri;
 if (process.env.NODE_ENV === 'development') {
-  uri = 'http://localhost:3100/graphql'
+  uri = 'https://ihd-forum-server.herokuapp.com/graphql'
 } else {
   uri = 'https://ihd-forum-server.herokuapp.com/graphql'
 }
@@ -57,20 +59,22 @@ const handleAuthentication = (nextState, replace) => {
   }
 }
 
+const baseUrl = process.env.PUBLIC_URL ? process.env.PUBLIC_URL : '';
+
 ReactDOM.render(
   <ApolloProvider client={ client }>
-    <Router history={history}>
+    <Router basename={baseUrl} >
       <BaseLayout auth={auth} >
         <Switch>
-          <Route exact path={process.env.PUBLIC_URL + "/"} render={props => <App auth={auth} {...props}/>} />
-          <Route path={process.env.PUBLIC_URL + "/home"} render={props => <Home auth={auth} {...props} />} />
-          <Route path={process.env.PUBLIC_URL + "/callback"} render={props => {
+          <Route exact path={baseUrl + "/"} render={props => <App auth={auth} {...props}/>} />
+          <Route path={baseUrl + "/home"} render={props => <Home auth={auth} {...props} />} />
+          <Route path={baseUrl + "/callback"} render={props => {
             handleAuthentication(props);
             return <Callback {...props} />
           }} />} />
-          <Route path={process.env.PUBLIC_URL + "/message/:messageId"} render={props => <Message auth={auth} {...props} /> } />
-          <Route path={process.env.PUBLIC_URL + "/compose"} render={props => <Compose history={history} {...props} /> } />
-          <Route path={process.env.PUBLIC_URL + "/user/:userId"} component={User} />
+          <Route path={baseUrl + "/message/:messageId"} render={props => <Message auth={auth} baseUrl={baseUrl} {...props} /> } />
+          <Route path={baseUrl + "/compose"} render={props => <Compose history={history} {...props} /> } />
+          <Route path={baseUrl + "/user/:userId"} component={User} />
         </Switch>
       </BaseLayout>
     </Router>

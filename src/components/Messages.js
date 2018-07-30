@@ -6,8 +6,10 @@ import Comments from './Comments';
 import { Link } from 'react-router-dom';
 import { GetMessages } from '../graphql/queries';
 
-const formatDate = (date) => moment(date).calendar();
-
+const formatDate = (date) => {
+  const formatted = new Date(date);
+  return moment(formatted).calendar()
+};
 
 const Messages = () => (
   <Query query={ GetMessages }>
