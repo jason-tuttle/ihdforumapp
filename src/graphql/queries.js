@@ -12,6 +12,7 @@ const GetMessages = gql`
           user_id
           nickname
         }
+        createdAt
       }
       likes {
         user {

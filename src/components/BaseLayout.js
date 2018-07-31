@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Header, Image, Button, Icon } from 'semantic-ui-react';
 
 class BaseLayout extends Component {
   logout = () => { this.props.auth.logout(); }
   render() {
     const { isAuthenticated } = this.props.auth;
-    const {baseUrl} = this.props;
+    const { baseUrl } = this.props;
+    const user = JSON.parse(localStorage.getItem('user_info'));
     
     return (
       <div>
         <header>
-          <h1 className="header title">IHD Forum Redux</h1>
-          <h3 className="header subtitle">Totally secure.</h3>
-          {isAuthenticated() && (
+          <Header as='h1'>
             <div>
-              <button onClick={this.logout}>Log Out</button>
-              <Link to={`${baseUrl}/compose`}>+ New Message</Link>
+              IHD Forum Messages
+              <Header.Subheader>Totally secure.</Header.Subheader>
+            </div>
+            <div>
+              <Image src={ user.picture } avatar /> <span>{ user.nickname || 'not logged in' }</span>
+            </div>
+            
+          </Header>
+          
+          {isAuthenticated() && (
+            <div className='header-buttons'>
+              <Button basic icon labelPosition='left'>
+                <Icon name='add' />
+                <Link to={`${baseUrl}/compose`}>New Message</Link>
+              </Button>
+              <Button basic color='red' onClick={this.logout}>Log Out</Button>
             </div>
           )}
         </header>
-        <div style={{height: 'calc(100vh - 125px)'}}>
-        {this.props.children}
-        </div>
+        
+          { this.props.children }
+        
       </div>
     );
   }

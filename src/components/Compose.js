@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Mutation } from 'react-apollo';
 import { AddMessage } from '../graphql/mutations';
-import { Redirect } from 'react-router-dom';
 import { GetMessages } from '../graphql/queries';
 
 export default class addMessage extends Component {

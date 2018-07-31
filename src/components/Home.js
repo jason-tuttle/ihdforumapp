@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Messages from './Messages';
+import { Container } from 'semantic-ui-react';
 
 export default class Home extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
-    
-    return (
-      <div>
-        <h2>IHD Forum Messages</h2>
-        
+
+    if (isAuthenticated()) {
+      return (
         <div>
-          <Messages />
+          <Container fluid>
+            <Messages />
+          </Container>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <Redirect to="/" />
+      )
+    }
+    
   }
 } 
