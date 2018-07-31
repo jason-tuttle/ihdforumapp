@@ -2,10 +2,15 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import moment from 'moment';
 // COMPONENTS
-import Comments from './Comments';
 import { Link } from 'react-router-dom';
 import { GetMessages } from '../graphql/queries';
-import { Segment, Comment, Header } from 'semantic-ui-react';
+import {
+  Segment,
+  Message,
+  Image,
+  Button,
+  Icon,
+} from 'semantic-ui-react';
 
 const formatDate = (date) => {
   const formatted = new Date(date);
@@ -21,22 +26,23 @@ const Messages = () => (
 
         return data.messages.map(message => (
           <Segment key={message.id}>
-            {message.message} <Link to={`message/${message.id}`} id={message.id} >&#8658;</Link>
-            <div className="footer">
-              posted by: { message.user.nickname }<br />
-              posted { formatDate(message.createdAt) }
-            </div>
-            <Comment.Group>
-              {message.comments.length > 0 && (
-                <Header as='h4'>
-                  Comments:
-                </Header>)}
-              <Comments comments={message.comments} />
-            </Comment.Group>
-            <p>
-              {message.likes.length} likes
-            </p>
-            <hr />
+            <Message size='small'>
+              <Message.Header>
+                <Image avatar src={message.user.picture} /> { message.user.nickname } <small>posted { formatDate(message.createdAt) }</small>
+                <Link to={`message/${message.id}`}><Icon link name='arrow right' /></Link>
+              </Message.Header>
+                {message.message}
+            </Message>  
+            <Button
+              color='green'
+              icon='comment'
+              label={{ basic: true, pointing: 'left', content: `${message.comments.length}` }}
+            />
+            <Button
+              color='blue'
+              icon='thumbs up outline'
+              label={{ basic: true, pointing: 'left', content: `${message.likes.length}` }}
+            />
           </Segment>
         ))
       }}

@@ -10,12 +10,12 @@ class Comments extends Component {
   
   render() {
     const {comments} = this.props;
-    console.log(comments);
+    
     return comments.map(comment => (
       <Comment key={comment.id}>
         <Comment.Avatar src={comment.user.picture} />
         <Comment.Content>
-          <Comment.Author>from: {comment.user.nickname}</Comment.Author>
+          <Comment.Author>from {comment.user.nickname}</Comment.Author>
           <Comment.Metadata>
             posted: {this.formatDate(comment.createdAt)}
           </Comment.Metadata>

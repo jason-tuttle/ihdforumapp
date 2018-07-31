@@ -23,6 +23,7 @@ const GetMessages = gql`
       user {
         nickname
         user_id
+        picture
       }
       createdAt
     }
@@ -39,7 +40,9 @@ const GetMessageQuery = gql`
         user {
           user_id
           nickname
+          picture
         }
+        createdAt
       }
       likes {
         user {
@@ -50,6 +53,7 @@ const GetMessageQuery = gql`
       user {
         nickname
         user_id
+        picture
       }
       createdAt
     }

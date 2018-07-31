@@ -13,13 +13,13 @@ body {
   justify-content: space-between;
 }
 
-.message {
+/* .message {
   margin: 10px 0;
   padding: 10px;
   font-weight: bold;
   border-top: 5px solid grey;
   border-bottom: 5px solid grey;
-}
+} */
 .message > .body {
   padding: 20px;
   background-color: rgba(127, 127, 100, 0.25);
@@ -33,8 +33,8 @@ body {
 .comment-input {
   width: 50%;
 }
-.comment {
+/* .comment {
   font-weight: normal;
   padding-left: 25px;
   font-size: .8em;
-}
+} */

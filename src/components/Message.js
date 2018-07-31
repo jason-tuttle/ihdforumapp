@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-
+import { Button, Icon, Segment, Comment, Header, Message, Image } from 'semantic-ui-react';
 import { GetMessageQuery } from '../graphql/queries';
 import { AddComment } from '../graphql/mutations';
 import Comments from './Comments';
 
-export default class Message extends Component {
+export default class MessageItem extends Component {
   formatDate = (date) => {
     const formatted = new Date(date);
     return moment(formatted).calendar()
@@ -19,7 +19,7 @@ export default class Message extends Component {
     const { messageId } = this.props.match.params;
     const id = { messageId };
     const { baseUrl } = this.props;
-    console.log(this.props);
+
     return (
       <Query
         query={GetMessageQuery}
@@ -31,25 +31,22 @@ export default class Message extends Component {
         const { message } = data;
         return (
           <div>
-            <div className="header">
+            <Button basic icon labelPosition='left'>
+              <Icon name='arrow left' />
               <Link to={`${baseUrl}/home`}>Back to Messages</Link>
-            </div>
-            <div key={ message.id } className="message">
-              <div className="body">
-                { message.message }
-              </div>
-
-              <div className="footer">
-                posted by: { message.user.nickname }
-                <br />
-                posted { this.formatDate(message.createdAt) }
-              </div>
-
+            </Button>
+            <Segment key={message.id}>
+              <Message size='large'>
+                <Message.Header>
+                  <Image avatar src={message.user.picture} /> { message.user.nickname } <small>posted { this.formatDate(message.createdAt) }</small>
+                </Message.Header>
+                  {message.message}
+              </Message>              
               <p>
-                {message.likes.length} Liked By: {message.likes.map(like => (<span key={like.user.user_id}>{like.user.nickname} </span>))}
+                {message.likes.length} likes
               </p>
-
-            </div>
+              <hr />
+            </Segment>
             <div className="comments-container">
               <Mutation
                 mutation={ AddComment }
@@ -86,7 +83,14 @@ export default class Message extends Component {
                 )}
               </Mutation>
 
-              <Comments comments={message.comments} />
+              <Comment.Group size='large'>
+                {message.comments.length > 0 && (
+                  <Header as='h5'>
+                    COMMENTS:
+                  </Header>)}
+                <Comments comments={message.comments} />
+              </Comment.Group>
+
 
             </div>
           </div>
