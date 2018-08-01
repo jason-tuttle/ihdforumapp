@@ -52,7 +52,25 @@ export default class MessageItem extends Component {
                 mutation={ AddComment }
                 update={ (cache, { data: { addComment } } ) => {
                   const { message } = cache.readQuery({ query: GetMessageQuery, variables: id });
-                  const data = { message: { ...message, comments: [...message.comments, { ...addComment, id: 'TEMP' }] } };
+                  const data = { 
+                    message: { 
+                      ...message,
+                      comments: [
+                        ...message.comments,
+                        {
+                          ...addComment,
+                          id: 'TEMP',
+                          user: {
+                            user_id: user.sub,
+                            nickname: user.nickname,
+                            picture: user.picture,
+                            __typename: 'User',
+                          },
+                          createdAt: Date.now(),
+                        }
+                      ]
+                    }
+                  };
                   cache.writeQuery({
                     query: GetMessageQuery,
                     variables: id,

@@ -7,7 +7,7 @@ class BaseLayout extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     const { baseUrl } = this.props;
-    const user = JSON.parse(localStorage.getItem('user_info'));
+    const getUser = () => JSON.parse(localStorage.getItem('user_info'));
     
     return (
       <div>
@@ -17,10 +17,11 @@ class BaseLayout extends Component {
               IHD Forum Messages
               <Header.Subheader>Totally secure.</Header.Subheader>
             </div>
-            <div>
-              <Image src={ user.picture } avatar /> <span>{ user.nickname || 'not logged in' }</span>
-            </div>
-            
+            {getUser() && (
+              <div>
+                <Image src={ getUser().picture } avatar /> <span>{ getUser().nickname || 'not logged in' }</span>
+              </div>
+            )}
           </Header>
           
           {isAuthenticated() && (
