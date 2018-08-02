@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import { Mutation } from 'react-apollo';
 import { AddMessage } from '../graphql/mutations';
 import { GetMessages } from '../graphql/queries';
+import { Container, Form, TextArea } from 'semantic-ui-react';
 
 export default class addMessage extends Component {
-  
-  
+
   render() {
     let messageInput;
     const { history, baseUrl } = this.props;
@@ -29,7 +29,7 @@ export default class addMessage extends Component {
       >
         {(addMessage, { data }) => (
           <div>
-            <form onSubmit={(e) => {
+            <Form onSubmit={(e) => {
               e.preventDefault();
               addMessage({
                 variables: {
@@ -41,9 +41,9 @@ export default class addMessage extends Component {
               });
               messageInput.value = "";
             }}>
-              <textarea rows={5} ref={node => { messageInput = node; }} className="comment-input" />
+              <TextArea rows={5} ref={node => { messageInput = node; }} placeholder='Type your message...'/>
               <button type="Submit">Add Message</button>
-            </form>
+            </Form>
           </div>
         )}
       </Mutation>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Image, Button, Icon } from 'semantic-ui-react';
+import { Container, Header, Image, Button, Icon } from 'semantic-ui-react';
 
 class BaseLayout extends Component {
   logout = () => { this.props.auth.logout(); }
@@ -10,8 +10,8 @@ class BaseLayout extends Component {
     const getUser = () => JSON.parse(localStorage.getItem('user_info'));
     
     return (
-      <div>
-        <header>
+      <Container fluid>
+
           <Header as='h1'>
             <div>
               IHD Forum Messages
@@ -33,11 +33,10 @@ class BaseLayout extends Component {
               <Button basic color='red' onClick={this.logout}>Log Out</Button>
             </div>
           )}
-        </header>
         
           { this.props.children }
         
-      </div>
+      </Container>
     );
   }
 }
