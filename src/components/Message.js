@@ -31,10 +31,12 @@ export default class MessageItem extends Component {
         const { message } = data;
         return (
           <div>
+            <Link to={`${baseUrl}/home`}>
             <Button basic icon labelPosition='left'>
               <Icon name='arrow left' />
-              <Link to={`${baseUrl}/home`}>Back to Messages</Link>
+              Back to Messages
             </Button>
+            </Link>
             <Segment key={message.id}>
               <Message size='large'>
                 <Message.Header>

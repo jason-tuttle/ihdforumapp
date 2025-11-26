@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Mutation } from 'react-apollo';
 import { AddMessage } from '../graphql/mutations';
 import { GetMessages } from '../graphql/queries';
-import { Container, Form, TextArea } from 'semantic-ui-react';
+import { Form, TextArea } from 'semantic-ui-react';
 
 export default class addMessage extends Component {
 
